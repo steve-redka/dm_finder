@@ -8,6 +8,11 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+admin = User.create!(
+    username: 'admin',
+    password: 'password'
+)
+
 Game.create!(
     title: 'Curse of Suckula',
     description: 'A vampire-themed adventure game where players must navigate a haunted castle and defeat the evil Count Suckula.',
@@ -19,4 +24,5 @@ Game.create!(
     system: 'Dungeons & Dragons 5th Edition',
     power_level: 'Starting level 1, max level 10',
     application_process: 'Fill out the online form and submit a character concept.'
+    dm: admin
 )

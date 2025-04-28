@@ -58,6 +58,7 @@ group :test do
   gem "selenium-webdriver"
   gem 'rspec-rails'
   gem 'database_cleaner'
+  gem 'shoulda-matchers'
 end
 
-gem "devise", "~> 4.9"
+gem "devise"
