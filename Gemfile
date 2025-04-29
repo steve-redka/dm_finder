@@ -62,3 +62,6 @@ group :test do
 end
 
 gem "devise"
+
+gem "dartsass-rails", "~> 0.5.1"
+gem 'bootstrap'

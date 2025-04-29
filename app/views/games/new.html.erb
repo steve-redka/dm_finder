@@ -1,2 +1,56 @@
-<h1>Games#new</h1>
-<p>Find me in app/views/games/new.html.erb</p>
+<h1>Create a game</h1>
+
+<%= form_with(model: @game, local: true, html: { class: 'form-horizontal' }) do |form| %>
+    <%# The form will be submitted via AJAX (remote: true) and will use the Bootstrap framework for styling. %>
+    <div class="form-group">
+        <%= form.label :title, class: 'control-label' %>
+        <%= form.text_field :title, class: 'form-control' %>
+    </div>
+    
+    <div class="form-group">
+        <%= form.label :description, class: 'control-label' %>
+        <%= form.text_area :description, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+        <%= form.label :age_restriction, class: 'control-label' %>
+        <%= form.select :age_restriction, ['12+', '16+', '18+'], {}, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+        <%= form.label :free, class: 'control-label' %>
+        <%= form.check_box :free, class: 'form-control form-check-input' %>
+        <%= form.label :price, class: 'control-label' %>
+        # Non free games; price at least 10, step 5
+        <%= form.number_field :price, class: 'form-control', step: 5, min: 10, default: 10 %>
+    </div>
+
+    <div class="form-group">
+        <%= form.label :duration, class: 'control-label' %>
+        <%= form.number_field :duration, class: 'form-control', step: 0.5, min: 0.5, default: 0.5 %>
+    </div>
+    <div class="form-group">
+        <%= form.label :seats, class: 'control-label' %>
+        <%= form.number_field :seats, class: 'form-control', step: 1, min: 1, default: 1 %>
+    </div> 
+    <div class="form-group">
+        <%= form.label :experience, class: 'control-label' %>
+        <%= form.text_area :experience, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+        <%= form.label :system, class: 'control-label' %>
+        <%= form.text_field :system, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+        <%= form.label :power_level, class: 'control-label' %>
+        <%= form.text_field :power_level, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+        <%= form.label :application_process, class: 'control-label' %>
+        <%= form.text_area :application_process, class: 'form-control' %>
+    </div>
+    
+    <div class="form-group">
+        <%= form.submit 'Create Game', class: 'btn btn-primary' %>
+    </div>
+<% end %>
