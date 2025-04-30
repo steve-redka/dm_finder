@@ -1,8 +1,5 @@
 <h1>Games#index</h1>
 <% @games.each do |game| %>
-  <div class="game">
-    <h2><%= game.title %></h2>
-    <p><%= game.description %></p>
-  </div>
+  <%= render partial: 'game_preview', locals: { game: game } %>
 <% end %>
 <%= link_to 'New Game', new_game_path, class: 'btn btn-primary' %>

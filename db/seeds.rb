@@ -9,7 +9,7 @@
 #   end
 
 admin = User.create!(
-    username: 'admin',
+    email: 'admin@mail.ru',
     password: 'password'
 )
 
@@ -19,10 +19,14 @@ Game.create!(
     age_restriction: '18+',
     price: 50.0,
     duration: 4.0,
+    occupied_seats: 3,
     seats: 6,
     experience: 'Veteran only',
     system: 'Dungeons & Dragons 5th Edition',
     power_level: 'Starting level 1, max level 10',
-    application_process: 'Fill out the online form and submit a character concept.'
-    dm: admin
+    application_process: 'Fill out the online form and submit a character concept.',
+    dm: admin,
+    recurrence: 'once',
+    next_game: DateTime.new(2023, 10, 15, 18, 0, 0),
+    game_time: Time.new(2023, 10, 15, 18, 0, 0),
 )

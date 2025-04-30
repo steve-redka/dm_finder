@@ -1,2 +1,20 @@
-<h1>Games#show</h1>
-<p>Find me in app/views/games/show.html.erb</p>
+<div class="row">
+    <div class="col-md-8">
+        <%= @game.description %><br>
+        <strong>Age Restriction:</strong> <%= @game.age_restriction %><br>
+        <strong>Recurrence:</strong> <%= @game.recurrence %><br>
+        <strong>Next @game:</strong> <%= @game.next_game.strftime("%B %d, %Y") %><br>
+        <strong>Time:</strong> <%= @game.game_time.strftime("%I:%M %p") %><br>
+        <strong>Duration:</strong> <%= pluralize(@game.duration, 'hour') %><br>
+        <strong>Price:</strong> <%= @game.price.to_i.zero? ? 'Free' : number_to_currency(@game.price) %><br>
+        <strong>Seats:</strong> <%= @game.occupied_seats %> / <%= @game.seats %><br>
+        <% if user_signed_in? && current_user == @game.dm %>
+            <%= link_to 'Edit', edit_game_path(@game), class: 'btn btn-warning' %>
+            <%= link_to 'Delete', game_path(@game), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        <% end %>
+    </div>
+    <div class="col-md-4">
+        <h4>Dungeon Master</h4>
+        <p><strong>Name:</strong> <%= @dm.email %></p>
+    </div>
+</div>
