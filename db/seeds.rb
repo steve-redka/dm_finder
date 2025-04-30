@@ -10,7 +10,9 @@
 
 admin = User.create!(
     email: 'admin@mail.ru',
-    password: 'password'
+    name: 'admin',
+    password: 'password',
+    bio: 'Admin user for the application',
 )
 
 Game.create!(

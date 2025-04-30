@@ -10,6 +10,7 @@ FactoryBot.define do
     experience { 'Beginner' }
     system { 'Dungeons & Dragons 5th Edition' }
     power_level { 'Starting level 1, max level 10' }
+    recurrence { 'once' }
     # Creates a user who is a DM
     # association :dm, factory: :user, strategy: :create, traits: [:dm]
   end

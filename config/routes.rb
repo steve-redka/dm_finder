@@ -13,4 +13,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "games#index"
   resources :games
+  devise_scope :user do 
+    get 'users/:id', to: 'users#show', as: 'user_profile'
+  end
 end

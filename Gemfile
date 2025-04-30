@@ -65,3 +65,4 @@ gem "devise"
 
 gem "dartsass-rails", "~> 0.5.1"
 gem 'bootstrap'
+gem "image_processing", "~> 1.2"
