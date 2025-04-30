@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   validates :name, presence: true, length: { minimum: 3, maximum: 50 }
+  validates :bio, length: { maximum: 5000 }
 
   has_many :dmed_games, foreign_key: :dm_id
   has_and_belongs_to_many :games, join_table: :games_users
@@ -12,4 +13,5 @@ class User < ApplicationRecord
   has_one_attached :avatar do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]
   end
+
 end
