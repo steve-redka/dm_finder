@@ -35,12 +35,20 @@
     </div> 
     <div class="form-group">
         <%= form.label :experience, class: 'control-label' %>
-        <%= form.text_area :experience, class: 'form-control' %>
+        <%= form.select :experience, ['anyone', 'beginner', 'experienced'], {}, class: 'form-control' %>
     </div>
     <div class="form-group">
-        <%= form.label :system, class: 'control-label' %>
-        <%= form.text_field :system, class: 'form-control' %>
+    <%= form.label :gaming_system, class: 'control-label' %>
+  
+    <%= form.select :gaming_system,
+        grouped_options_for_select(
+            @gaming_systems.group_by(&:group).transform_values { |systems| systems.map(&:name) },
+            selected: form.object.gaming_system
+        ),
+        {},
+        class: 'form-control' %>
     </div>
+    
     <div class="form-group">
         <%= form.label :power_level, class: 'control-label' %>
         <%= form.text_field :power_level, class: 'form-control' %>

@@ -11,4 +11,5 @@ class Game < ApplicationRecord
     belongs_to :dm, class_name: 'User', foreign_key: 'dm_id', optional: true
 
     has_one_attached :cover_image  
+    belongs_to :gaming_system
 end

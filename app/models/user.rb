@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   has_many :dmed_games, foreign_key: :dm_id
   has_and_belongs_to_many :games, join_table: :games_users
+  has_and_belongs_to_many :gaming_systems
 
   has_one_attached :avatar do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]

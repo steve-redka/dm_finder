@@ -15,6 +15,14 @@ admin = User.create!(
     bio: 'Admin user for the application',
 )
 
+YAML.load_file(Rails.root.join('db', 'gaming_systems.yml')).each do |gaming_system|
+    GamingSystem.create!(
+        name: gaming_system['name'],
+        priority: gaming_system['priority'],
+        group: gaming_system['group'],
+    )
+end
+
 Game.create!(
     title: 'Curse of Suckula',
     description: 'A vampire-themed adventure game where players must navigate a haunted castle and defeat the evil Count Suckula.',
@@ -31,4 +39,5 @@ Game.create!(
     recurrence: 'once',
     next_game: DateTime.new(2023, 10, 15, 18, 0, 0),
     game_time: Time.new(2023, 10, 15, 18, 0, 0),
+    gaming_system: GamingSystem.find_by(name: 'Dungeons & Dragons 5e'),
 )

@@ -12,10 +12,13 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
+    @gaming_systems = GamingSystem.order(priority: :desc, name: :asc)
   end
 
   def create
-    @game = Game.new(game_params.except(:free))
+    @game = Game.new(game_params.except(:free, :gaming_system))
+    @gaming_systems = GamingSystem.order(priority: :desc, name: :asc)
+    @game.gaming_system = GamingSystem.find_by(name: params[:game][:gaming_system])
     @game.dm = current_user
     if @game.save
       redirect_to @game, notice: 'Game was successfully created.'
@@ -26,6 +29,7 @@ class GamesController < ApplicationController
   end
 
   def edit
+    @gaming_systems = GamingSystem.order(priority: :desc, name: :asc)
   end
 
   def destroy
@@ -38,6 +42,6 @@ class GamesController < ApplicationController
 
     def game_params
         params.require(:game).permit(:title, :description, :age_restriction, :application_process, 
-        :price, :duration, :seats, :experience, :system, :power_level, :free)
+        :price, :duration, :seats, :experience, :gaming_system, :power_level, :free)
     end
 end

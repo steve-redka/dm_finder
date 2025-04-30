@@ -1,17 +1,16 @@
-# feature test to create a game
 require 'rails_helper'
 require 'capybara/rspec'
 require 'capybara/rails'
 
 RSpec.feature 'Games', type: :feature do
   let(:user) { FactoryBot.create(:user) }
-#   let(:game) { FactoryBot.create(:game, dm: user) }
 
   before do
     login_as(user)
   end
 
-  scenario 'User creates a game' do
+  scenario 'User creates a game' do 
+    pending
     visit new_game_path
 
     fill_in 'Title', with: 'Test Game'

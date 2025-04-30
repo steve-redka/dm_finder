@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_30_124345) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_30_175625) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_30_124345) do
     t.date "next_game"
     t.string "platform"
     t.integer "occupied_seats"
+    t.integer "gaming_system_id"
     t.index ["dm_id"], name: "index_games_on_dm_id"
   end
 
@@ -68,6 +69,20 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_30_124345) do
     t.index ["game_id"], name: "index_games_users_on_game_id"
     t.index ["user_id", "game_id"], name: "index_games_users_on_user_id_and_game_id", unique: true
     t.index ["user_id"], name: "index_games_users_on_user_id"
+  end
+
+  create_table "gaming_systems", force: :cascade do |t|
+    t.string "name"
+    t.integer "priority"
+    t.string "group"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "gaming_systems_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "gaming_system_id", null: false
+    t.index ["user_id", "gaming_system_id"], name: "index_gaming_systems_users_on_user_id_and_gaming_system_id"
   end
 
   create_table "users", force: :cascade do |t|
