@@ -28,6 +28,12 @@ class GamesController < ApplicationController
   def edit
   end
 
+  def destroy
+    @game = Game.find(params[:id])
+    @game.destroy
+    redirect_to games_path, notice: "Game was successfully deleted."
+  end
+
   private
 
     def game_params
