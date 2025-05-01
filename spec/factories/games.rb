@@ -12,6 +12,8 @@ FactoryBot.define do
     power_level { 'Starting level 1, max level 10' }
     recurrence { 'once' }
     gaming_system { GamingSystem.first || association(:gaming_system) }
+    next_game { DateTime.now + 1.week }
+    game_time { Time.now + 1.week }
     # Creates a user who is a DM
     # association :dm, factory: :user, strategy: :create, traits: [:dm]
   end

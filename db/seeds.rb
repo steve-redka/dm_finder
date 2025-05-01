@@ -41,3 +41,26 @@ Game.create!(
     game_time: Time.new(2023, 10, 15, 18, 0, 0),
     gaming_system: GamingSystem.find_by(name: 'Dungeons & Dragons 5e'),
 )
+
+# if Rails.env.development? || Rails.env.test?
+    10.times do
+        Game.create!(
+            title: Faker::Game.title,
+            description: Faker::Lorem.paragraph(sentence_count: 3),
+            age_restriction: ['any', '12+', '18+'].sample,
+            price: rand(10..50),
+            duration: rand(2.0..5.0).round(1),
+            occupied_seats: rand(0..5),
+            seats: 6,
+            experience: ['Beginner friendly', 'Intermediate', 'Veteran only'].sample,
+            system: Faker::Game.genre,
+            power_level: 'Starting level 1, max level 5',
+            application_process: Faker::Lorem.sentence,
+            dm: admin,
+            recurrence: ['once', 'weekly', 'bi-weekly'].sample,
+            next_game: DateTime.now + rand(1..30).days,
+            game_time: Time.now + rand(1..30).days,
+            gaming_system: GamingSystem.order('RANDOM()').first,
+        )
+    end
+# end

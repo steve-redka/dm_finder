@@ -2,7 +2,10 @@ class GamesController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @games = Game.all
+    @q = Game.ransack(params[:q])
+    @games = @q.result.includes(:gaming_system)
+    @gaming_systems = GamingSystem.order(priority: :desc, name: :asc)
+    @age_restrictions = [['any', nil], ['12+', '12+'], ['18+', '18+']]
   end
 
   def show
