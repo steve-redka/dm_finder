@@ -1,0 +1,22 @@
+<div class="container">
+<% @chat_rooms.each do |chat_room| %>
+    <div>
+    <%= chat_room.chat_messages.last %>
+    <%= chat_room.chat_messages.last.user.name %>
+    </div>
+<% end %>
+    
+</div>
+<div class="list-group">
+    <% @chat_rooms.each do |chat_room| %>
+        <a href="<%= chat_room_path(chat_room) %>" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 align-items-center">
+                <%= avatar_image_tag chat_room.chat_messages.last.user, style: "width: 50px;" %>
+                <div>
+                    <h5 class="mb-1"><%= chat_room.title %></h5>
+                    <p class="mb-0 text-muted"><%= truncate(chat_room.chat_messages.last.content, length: 50) %></p>
+                </div>
+            </div>
+        </a>
+    <% end %>
+</div>
