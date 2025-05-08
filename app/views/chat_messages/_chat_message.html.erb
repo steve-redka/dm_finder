@@ -1,17 +1,4 @@
-<% if message.user == current_user %>
-    <div class="text-start">
-        <%= avatar_image_tag message.user, width: '50px' %>
-        <span class="badge bg-success"><%= message.user.name %></span> 
-        <p class="d-inline-block bg-light text-dark p-2 rounded">
-            <%= message.content %>
-        </p>
-    </div>
-<% else %>
-    <div class="text-start">
-        <%= avatar_image_tag message.user, width: '50px' %>
-        <span class="badge bg-info"><%= message.user.name %></span>
-        <p class="d-inline-block bg-secondary text-white p-2 rounded">
-            <%= message.content %>
-        </p>
-    </div>
-<% end %>
+<div class="chat-message">
+  <strong><%= message.user.name %>:</strong>
+  <%= message.content %>
+</div>
