@@ -29,16 +29,16 @@ module DevelopmentSeeds
             FactoryBot.create(:user)
         end
 
-        5.times do
-            chat_room = FactoryBot.create(:chat_room)
-            chat_room.users << User.all.sample(1)
-            chat_room.users << admin
-            10.times do
-                chat_room.chat_messages.create!(
-                    user: chat_room.users.sample,
-                    content: Faker::Lorem.sentence(word_count: 10),
-                )
-            end
-        end
+        # 5.times do
+        #     chat_room = FactoryBot.create(:chat_room)
+        #     chat_room.users << User.all.sample(1)
+        #     chat_room.users << admin
+        #     10.times do
+        #         chat_room.chat_messages.create!(
+        #             user: chat_room.users.sample,
+        #             content: Faker::Lorem.sentence(word_count: 10),
+        #         )
+        #     end
+        # end
     end
 end

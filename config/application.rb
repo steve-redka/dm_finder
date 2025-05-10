@@ -5,6 +5,9 @@ require "rails/all"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+if Rails.env.development? || Rails.env.test?
+  require 'pry'
+end
 
 module Dmfinder
   class Application < Rails::Application
@@ -26,3 +29,4 @@ module Dmfinder
     config.active_storage.variant_processor = :mini_magick
   end
 end
+

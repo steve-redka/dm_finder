@@ -9,4 +9,23 @@ class ChatRoomsController < ApplicationController
         @chat_room = ChatRoom.find(params[:id])
         @chat_messages = @chat_room.chat_messages.includes(:user).order(created_at: :asc)
     end
+
+    def private_message
+        # This method is used to create or open an existing private chat room between two users
+        @dm = User.find(params[:dm_id])
+        @chatroom = ChatRoom.joins(:users)
+                            .group('chat_rooms.id')
+                            .having('COUNT(users.id) = 2')
+                            .where(users: { id: [current_user.id, @dm.id] })
+                            .first_or_initialize
+
+        if @chatroom.new_record?
+            @chatroom.title = "#{current_user.name} & #{@dm.name}"
+            if @chatroom.save
+                @chatroom.users << current_user
+                @chatroom.users << @dm
+            end
+        end
+        redirect_to chat_room_path(@chatroom)
+    end
 end

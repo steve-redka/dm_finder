@@ -18,5 +18,6 @@ Rails.application.routes.draw do
   end
 
   resources :chat_rooms, only: [:show, :index]
+  post :private_message, to: 'chat_rooms#private_message'
   resources :chat_messages, only: [:create]
 end

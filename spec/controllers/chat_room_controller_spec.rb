@@ -52,4 +52,30 @@ RSpec.describe ChatRoomsController, type: :controller do
             expect(response).to render_template(:show)
         end
     end
+
+    describe 'POST #private_message' do
+        context 'when a chatroom does not exist' do
+            it 'creates a new chatroom with the two users' do
+                expect {
+                    post :private_message, params: { dm_id: user2.id }
+                }.to change(ChatRoom, :count).by(1)
+
+                chatroom = ChatRoom.last
+                expect(chatroom.users).to include(user, user2)
+                expect(response).to redirect_to(chat_room_path(chatroom))
+            end
+        end
+
+        context 'when a chatroom already exists' do
+            let!(:existing_chatroom) { create(:chat_room, users: [user, user2]) }
+
+            it 'does not create a new chatroom and redirects to the existing one' do
+                expect {
+                post :private_message, params: { dm_id: user2.id }
+                }.not_to change(ChatRoom, :count)
+
+                expect(response).to redirect_to(chat_room_path(existing_chatroom))
+            end
+        end
+    end
 end

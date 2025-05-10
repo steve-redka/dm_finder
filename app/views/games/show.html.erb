@@ -22,5 +22,8 @@
             <%= image_tag 'avatar_placeholder.png', class: 'img-fluid rounded' %>
         <% end %>
         <p><strong>Bio</strong>: <%= @dm.bio %></p>
+        <% if user_signed_in? && current_user != @dm %>
+            <%= button_to 'Message Dungeon Master', private_message_path(dm_id: @dm.id), method: :post, class: 'btn btn-primary' %>
+        <% end %>
     </div>
 </div>

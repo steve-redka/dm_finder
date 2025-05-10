@@ -15,6 +15,6 @@ class User < ApplicationRecord
     attachable.variant :thumb, resize_to_limit: [100, 100]
   end
 
-  has_and_belongs_to_many :chat_rooms, join_table: :chat_rooms_users
+  has_and_belongs_to_many :chat_rooms
   has_many :chat_messages
 end
