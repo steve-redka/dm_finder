@@ -1,24 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an app to search TTRPG games. DMs can create games, and players can apply to  them. WIP.
 
-Things you may want to cover:
+## Development
 
-* Ruby version
+### Frontend
+```
+bin/webpack-dev-server
+```
 
-* System dependencies
+### Backend
 
-* Configuration
+Database creation:
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+rake db:migrate && rake db:reset
+```
