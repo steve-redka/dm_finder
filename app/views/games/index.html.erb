@@ -1,29 +1,6 @@
 <h1>Games#index</h1>
 
-<%= search_form_for @q, url: games_path, method: :get, html: { class: "form-inline" } do |f| %>
-  <div class="form-group">
-    <%= f.label :title_or_description_cont, "Search games" %>
-    <%= f.search_field :title_or_description_cont, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :gaming_system_id_eq, "System" %>
-    <%= f.select :gaming_system_id_eq,
-          options_from_collection_for_select(@gaming_systems, :id, :name, f.object.gaming_system_id_eq),
-          include_blank: "Any",
-          class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :age_restriction_eq, "Age Rating" %>
-    <%= f.select :age_restriction_eq,
-          options_for_select(@age_restrictions, f.object.age_restriction_eq),
-          include_blank: false,
-          class: "form-control" %>
-  </div>
-
-  <%= f.submit "Search", class: "btn btn-primary" %>
-<% end %>
+<%= render partial: 'search_form' %>
 
 <% @games.each do |game| %>
   <%= render partial: 'game_preview', locals: { game: game } %>

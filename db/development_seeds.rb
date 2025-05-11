@@ -18,7 +18,7 @@ module DevelopmentSeeds
                 power_level: 'Starting level 1, max level 5',
                 application_process: Faker::Lorem.sentence,
                 dm: admin,
-                recurrence: ['once', 'weekly', 'bi-weekly'].sample,
+                recurrence: ['one-shot', 'weekly', 'play-by-post'].sample,
                 next_game: DateTime.now + rand(1..30).days,
                 game_time: Time.now + rand(1..30).days,
                 gaming_system: GamingSystem.order('RANDOM()').first,

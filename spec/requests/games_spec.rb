@@ -48,5 +48,18 @@ RSpec.describe "Games", type: :request do
         expect(response.body).not_to include("Beginner DnD")
       end
     end
+
+    describe 'Schedule' do
+      describe 'next game' do
+        let!(:game4) { FactoryBot.create(:game, title: "Next game", dm: user, next_game: DateTime.now + 1.week) }
+        let!(:game5) { FactoryBot.create(:game, title: "Past game", dm: user, next_game: DateTime.now - 1.week) }
+
+        it 'returns games with next game in the future' do
+          get games_path, params: { q: { next_game_gteq: DateTime.now } }
+          expect(response.body).to include("Next game")
+          expect(response.body).not_to include("Past game")
+        end
+      end
+    end
   end
 end

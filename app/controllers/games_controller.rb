@@ -6,6 +6,7 @@ class GamesController < ApplicationController
     @games = @q.result.includes(:gaming_system)
     @gaming_systems = GamingSystem.order(priority: :desc, name: :asc)
     @age_restrictions = [['any', nil], ['12+', '12+'], ['18+', '18+']]
+    @recurrences = [[], ['one-shot', 'one-shot'], ['weekly', 'weekly'], ['play-by-post', 'play-by-post'], ['other', 'other']]
   end
 
   def show
@@ -45,6 +46,7 @@ class GamesController < ApplicationController
 
     def game_params
         params.require(:game).permit(:title, :description, :age_restriction, :application_process, 
-        :price, :duration, :seats, :experience, :gaming_system, :power_level, :free)
+        :price, :duration, :seats, :experience, :gaming_system, :power_level, :free, :recurrence_type,
+        :next_game, :schedule)
     end
 end

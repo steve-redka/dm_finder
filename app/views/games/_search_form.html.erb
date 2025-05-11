@@ -1,0 +1,43 @@
+<%= search_form_for @q, url: games_path, method: :get, html: { class: "form-inline" } do |f| %>
+    <div class="form-group">
+      <%= f.label :title_or_description_cont, "Search games" %>
+      <%= f.search_field :title_or_description_cont, class: "form-control" %>
+    </div>
+  
+    <div class="form-group">
+      <%= f.label :gaming_system_id_eq, "System" %>
+      <%= f.select :gaming_system_id_eq,
+            options_from_collection_for_select(@gaming_systems, :id, :name, f.object.gaming_system_id_eq),
+            include_blank: "Any",
+            class: "form-control" %>
+    </div>
+  
+    <div class="form-group">
+      <%= f.label :age_restriction_eq, "Age Rating" %>
+      <%= f.select :age_restriction_eq,
+            options_for_select(@age_restrictions, f.object.age_restriction_eq),
+            include_blank: false,
+            class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :recurrence_eq, "Recurrence" %>
+      <%= f.select :recurrence_eq,
+            options_for_select(@recurrences, f.object.recurrence_eq),
+            id: 'recurrence-select',
+            include_blank: false,
+            class: "form-control" %>
+    </div>
+    <div id ='next-game-field' class="form-group", style="display: none">
+    <div class="form-group">
+      <%= f.label :next_game_date_gteq, "Earliest Date" %>
+      <%= f.date_field :next_game_gteq, class: "form-control", value: @q.next_game_gteq || Time.now %>
+    </div>
+  
+    <div class="form-group">
+      <%= f.label :next_game_date_lteq, "Latest Date" %>
+      <%= f.date_field :next_game_lteq, class: "form-control", value:  @q.next_game_lteq || Time.now + 30.days %>
+    </div>
+    </div>
+  
+    <%= f.submit "Search", class: "btn btn-primary" %>
+  <% end %>

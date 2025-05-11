@@ -70,3 +70,4 @@ gem 'bootstrap'
 gem "image_processing", "~> 1.2"
 gem 'ransack'
 gem 'webpacker'
+gem 'ice_cube'
