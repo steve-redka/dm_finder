@@ -25,4 +25,5 @@ class Game < ApplicationRecord
       end
       # scope :next_game_date_gteq, ->(datetime) { where('next_game_date >= ?', datetime) }
       # scope :next_game_date_lteq, ->(datetime) { where('next_game_date <= ?', datetime) }
+      has_many :join_requests, dependent: :destroy
 end

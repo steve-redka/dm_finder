@@ -17,4 +17,5 @@ class User < ApplicationRecord
 
   has_and_belongs_to_many :chat_rooms
   has_many :chat_messages
+  has_many :join_requests, dependent: :destroy
 end

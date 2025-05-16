@@ -40,5 +40,11 @@ module DevelopmentSeeds
                 )
             end
         end
+
+        5.times do
+            game = Game.order('RANDOM()').first
+            user = User.order('RANDOM()').first
+            JoinRequest.create!(game: game, user: user, message: "I'd love to join this game!", status: 'pending')
+          end
     end
 end

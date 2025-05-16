@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_10_234236) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_16_182009) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -65,6 +65,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_10_234236) do
     t.index ["user_id"], name: "index_chat_rooms_users_on_user_id"
   end
 
+  create_table "game_applications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "game_id", null: false
+    t.text "message"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_game_applications_on_game_id"
+    t.index ["user_id"], name: "index_game_applications_on_user_id"
+  end
+
   create_table "games", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -112,6 +123,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_10_234236) do
     t.index ["user_id", "gaming_system_id"], name: "index_gaming_systems_users_on_user_id_and_gaming_system_id"
   end
 
+  create_table "join_requests", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "game_id", null: false
+    t.text "message"
+    t.string "status", default: "pending"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_join_requests_on_game_id"
+    t.index ["user_id"], name: "index_join_requests_on_user_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.integer "sender_id"
     t.integer "recipient_id"
@@ -138,7 +160,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_10_234236) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chat_rooms_users", "chat_rooms"
   add_foreign_key "chat_rooms_users", "users"
+  add_foreign_key "game_applications", "games"
+  add_foreign_key "game_applications", "users"
   add_foreign_key "games", "users", column: "dm_id"
   add_foreign_key "games_users", "games"
   add_foreign_key "games_users", "users"
+  add_foreign_key "join_requests", "games"
+  add_foreign_key "join_requests", "users"
 end

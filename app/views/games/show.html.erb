@@ -9,21 +9,37 @@
         <strong>Price:</strong> <%= @game.price.to_i.zero? ? 'Free' : number_to_currency(@game.price) %><br>
         <strong>Seats:</strong> <%= @game.occupied_seats %> / <%= @game.seats %><br>
         <% if user_signed_in? && current_user == @game.dm %>
+            <h3>Manage Game</h3>
+            <%= render 'join_requests/join_requests', locals: { join_requests: @game.join_requests } %>
             <%= link_to 'Edit', edit_game_path(@game), class: 'btn btn-warning' %>
             <%= link_to 'Delete', game_path(@game), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
         <% end %>
+        <% if user_signed_in? && current_user != @game.dm %>
+            <h3>Apply to Join</h3>
+            <%= form_with model: JoinRequest.new, url: game_join_requests_path(@game), local: true do |f| %>
+                <div class="form-group">
+                <%= f.label :message, "Why do you want to join this game?" %>
+                <%= f.text_area :message, class: "form-control", rows: 5 %>
+                </div>
+                <%= f.submit "Submit Request", class: "btn btn-primary" %>
+            <% end %>
+        <% end %>
     </div>
     <div class="col-md-4">
-        <h4>Dungeon Master</h4>
-        <p><strong>Name:</strong> <%= @dm.name %></p>
-        <% if @dm.avatar.attached? %>
-            <%= image_tag @dm.avatar.variant(:thumb), class: 'img-fluid rounded' %>
+        <% if @dm %>
+            <h4>Dungeon Master</h4>
+            <p><strong>Name:</strong> <%= @dm.name %></p>
+            <% if @dm.avatar.attached? %>
+                <%= image_tag @dm.avatar.variant(:thumb), class: 'img-fluid rounded' %>
+            <% else %>
+                <%= image_tag 'avatar_placeholder.png', class: 'img-fluid rounded' %>
+            <% end %>
+            <p><strong>Bio</strong>: <%= @dm.bio %></p>
+            <% if user_signed_in? && current_user != @dm %>
+                <%= button_to 'Message Dungeon Master', private_message_path(dm_id: @dm.id), method: :post, class: 'btn btn-primary' %>
+            <% end %>
         <% else %>
-            <%= image_tag 'avatar_placeholder.png', class: 'img-fluid rounded' %>
-        <% end %>
-        <p><strong>Bio</strong>: <%= @dm.bio %></p>
-        <% if user_signed_in? && current_user != @dm %>
-            <%= button_to 'Message Dungeon Master', private_message_path(dm_id: @dm.id), method: :post, class: 'btn btn-primary' %>
+            <h4>No Dungeon Master Assigned</h4>
         <% end %>
     </div>
 </div>

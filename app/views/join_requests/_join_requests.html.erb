@@ -1,0 +1,42 @@
+<% if @join_requests %>
+    <h3>Join Requests</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @join_requests.each do |request| %>
+                <tr id="request_<%= request.id %>">
+                    <td><%= link_to request.user.name, user_profile_path(request.user) %></td>
+                    <td><%= request.message %></td>
+                    <td>
+                        <% if request.status == 'pending' %>
+                            <span class="text-warning">Pending</span>
+                        <% elsif request.status == 'accepted' %>
+                            <span class="text-success">Accepted</span>
+                        <% elsif request.status == 'rejected' %>
+                            <span class="text-danger">Rejected</span>
+                        <% end %>
+                    </td>
+                    <td>
+                        <% if request.status != 'accepted' %>
+                          <%= link_to 'Accept', accept_game_join_request_path(request), method: :patch, class: 'btn btn-success' %>
+                        <% end %>
+                        <% if request.status != 'rejected' %>
+                          <%= link_to 'Reject', reject_game_join_request_path(request), method: :patch, class: 'btn btn-danger' %>
+                        <% end %>
+                         
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% else %>
+    <p>No join requests yet.</p>
+<% end %>
+<!-- End of join_requests.html.erb -->

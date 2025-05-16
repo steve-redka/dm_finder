@@ -12,6 +12,7 @@ class GamesController < ApplicationController
   def show
     @game = Game.find(params[:id])
     @dm = @game.dm
+    @join_requests = @game.join_requests
   end
 
   def new

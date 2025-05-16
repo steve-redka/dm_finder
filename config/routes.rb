@@ -20,4 +20,15 @@ Rails.application.routes.draw do
   resources :chat_rooms, only: [:show, :index]
   post :private_message, to: 'chat_rooms#private_message'
   resources :chat_messages, only: [:create]
+  resources :games do
+    resources :join_requests do
+      member do
+        post :create
+        patch :accept
+        patch :reject
+      end
+    end
+    # post 'accept_join_request/:id', to: 'join_requests#accept', as: 'accept_join_request'
+    # post 'reject_join_request/:id', to: 'join_requests#reject', as: 'reject_join_request'
+  end
 end
